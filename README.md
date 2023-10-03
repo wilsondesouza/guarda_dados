@@ -1,4 +1,4 @@
-# <img src="assets/icone.png" width="30" height="30"/></a> Lava-Jato Sandes 
+# <img src="assets/icone.png" width="30" height="30"/></a> Guarda Dados 
 
 ## 💻 Resumo
 ### Aplicativo em Flutter para Android

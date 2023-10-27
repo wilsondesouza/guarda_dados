@@ -1,9 +1,28 @@
+// Página de consulta dos dados que foram inseridos na página de registro
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'registrar_page_agua.dart';
+import 'repository/registrar_repository.dart';
 
-class ConsultaPageAgua extends StatelessWidget {
+class ConsultaPageAgua extends StatefulWidget {
   const ConsultaPageAgua({super.key, Key? chave});
+
+  @override
+  State<ConsultaPageAgua> createState() => _ConsultaPageAguaState();
+}
+
+class _ConsultaPageAguaState extends State<ConsultaPageAgua> {
+  ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      var posicaoPaginar = scrollController.position.maxScrollExtent * 0.7;
+      if (posicaoPaginar < scrollController.position.pixels) {
+        carregarAgua();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +38,7 @@ class ConsultaPageAgua extends StatelessWidget {
             ),
           ),
           child: ListView.builder(
+            controller: scrollController,
             itemCount: aguaData.registros.length,
             itemBuilder: (context, index) {
               Agua agua = aguaData.registros[index];

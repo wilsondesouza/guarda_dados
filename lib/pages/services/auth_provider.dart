@@ -1,4 +1,7 @@
+// Service para verificar a disponibilidade da biometria no smartphone e usá-la como método de autenticação/login
+
 import 'package:flutter/services.dart';
+import 'package:local_auth/auth_strings.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LocalAuthApi {
@@ -27,9 +30,10 @@ class LocalAuthApi {
     try {
       return await _auth.authenticate(
         biometricOnly: true,
-        localizedReason: 'Toque no sensor para autenticar',
+        localizedReason: 'Desbloqueie seu celular',
         useErrorDialogs: true,
         stickyAuth: true,
+        androidAuthStrings: const AndroidAuthMessages(signInTitle: 'Guarda Dados', biometricHint: '', cancelButton: 'Cancelar'),
       );
     } on PlatformException {
       return false;

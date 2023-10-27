@@ -1,76 +1,15 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'repository/registrar_repository.dart';
 
-class Lan {
-  final String nome;
-  final String rede;
-  final String mac;
-  final String ip;
-  final String tipoAparelho;
-
-  Lan({
-    required this.nome,
-    required this.rede,
-    required this.mac,
-    required this.ip,
-    required this.tipoAparelho,
-  });
-
-  Map<String, dynamic> toJson() {
-    return {
-      'nome': nome,
-      'rede': rede,
-      'MAC': mac,
-      'IP': ip,
-      'tipoAparelho': tipoAparelho,
-    };
-  }
-
-  factory Lan.fromJson(Map<String, dynamic> json) {
-    return Lan(nome: json['nome'], rede: json['rede'], mac: json['MAC'], ip: json['IP'], tipoAparelho: json['tipoAparelho']);
-  }
-}
-
-Future<void> salvarLan(List<Lan> lan) async {
-  final prefs = await SharedPreferences.getInstance();
-  final lanJson = lan.map((lan) => jsonEncode(lan.toJson())).toList();
-  await prefs.setStringList('lan', lanJson);
-}
-
-Future<List<Lan>> carregarLan() async {
-  final prefs = await SharedPreferences.getInstance();
-  final lanJson = prefs.getStringList('lan');
-  if (lanJson == null) {
-    return [];
-  }
-  return lanJson.map((carroJson) => Lan.fromJson(jsonDecode(carroJson))).toList();
-}
-
-class LanData extends ChangeNotifier {
-  List<Lan> registros = [];
-
-  LanData(List<Lan> lan) {
-    registros = lan;
-  }
-
-  void adicionarLan(Lan lan) {
-    registros.add(lan);
-    salvarLan(registros);
-    notifyListeners();
-  }
-
-  void removerLan(int index) {
-    registros.removeAt(index);
-    salvarLan(registros);
-    notifyListeners();
-  }
-}
-
-class RegistrarPageLan extends StatelessWidget {
+class RegistrarPageLan extends StatefulWidget {
   const RegistrarPageLan({super.key, Key? chave});
 
+  @override
+  State<RegistrarPageLan> createState() => _RegistrarPageLanState();
+}
+
+class _RegistrarPageLanState extends State<RegistrarPageLan> {
   @override
   Widget build(BuildContext context) {
     final TextEditingController nomeController = TextEditingController();
@@ -152,7 +91,7 @@ class RegistrarPageLan extends StatelessWidget {
                         },
                       );
                     } else {
-                      Lan carro = Lan(
+                      Lan lan = Lan(
                         nome: nome,
                         rede: rede,
                         mac: mac,
@@ -160,7 +99,7 @@ class RegistrarPageLan extends StatelessWidget {
                         tipoAparelho: tipoAparelho,
                       );
 
-                      lanData.adicionarLan(carro);
+                      lanData.adicionarLan(lan);
 
                       nomeController.clear();
                       redeController.clear();

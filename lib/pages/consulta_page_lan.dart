@@ -1,6 +1,8 @@
+// Página de consulta dos dados que foram inseridos na página de registro
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'registrar_page_lan.dart';
+import 'repository/registrar_repository.dart';
 
 class ConsultaPageLan extends StatefulWidget {
   const ConsultaPageLan({super.key, Key? chave});
@@ -10,6 +12,18 @@ class ConsultaPageLan extends StatefulWidget {
 }
 
 class _ConsultaPageLanState extends State<ConsultaPageLan> {
+  ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      var posicaoPaginar = scrollController.position.maxScrollExtent * 0.7;
+      if (posicaoPaginar < scrollController.position.pixels) {
+        carregarLan();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var aguaData = Provider.of<LanData>(context);
@@ -24,6 +38,7 @@ class _ConsultaPageLanState extends State<ConsultaPageLan> {
             ),
           ),
           child: ListView.builder(
+            controller: scrollController,
             itemCount: aguaData.registros.length,
             itemBuilder: (context, index) {
               Lan lan = aguaData.registros[index];

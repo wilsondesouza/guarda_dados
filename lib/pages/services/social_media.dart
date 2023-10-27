@@ -1,3 +1,5 @@
+// Service para reutilizar a função de gerar objeto com o link externo das redes sociais do desenvolvedor
+
 import 'package:url_launcher/url_launcher.dart';
 
 class SocialMedia {

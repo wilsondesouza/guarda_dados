@@ -1,87 +1,20 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'repository/registrar_repository.dart';
 
-class Agua {
-  final String id;
-  final String dataEntrada;
-  final String valorEntrada;
-  final String dataSaida;
-  final String valorSaida;
-
-  Agua({
-    required this.id,
-    required this.dataEntrada,
-    required this.valorEntrada,
-    required this.dataSaida,
-    required this.valorSaida,
-  });
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'dataEntrada': dataEntrada,
-      'valorEntrada': valorEntrada,
-      'dataSaida': dataSaida,
-      'valorSaida': valorSaida,
-    };
-  }
-
-  factory Agua.fromJson(Map<String, dynamic> json) {
-    return Agua(
-      id: json['id'],
-      dataEntrada: json['dataEntrada'],
-      valorEntrada: json['valorEntrada'],
-      dataSaida: json['dataSaida'],
-      valorSaida: json['valorSaida'],
-    );
-  }
-}
-
-Future<void> salvarAgua(List<Agua> aguas) async {
-  final prefs = await SharedPreferences.getInstance();
-  final aguasJson = aguas.map((carro) => jsonEncode(carro.toJson())).toList();
-  await prefs.setStringList('agua', aguasJson);
-}
-
-Future<List<Agua>> carregarAgua() async {
-  final prefs = await SharedPreferences.getInstance();
-  final aguasJson = prefs.getStringList('agua');
-  if (aguasJson == null) {
-    return [];
-  }
-  return aguasJson.map((aguaJson) => Agua.fromJson(jsonDecode(aguaJson))).toList();
-}
-
-class AguaData extends ChangeNotifier {
-  List<Agua> registros = [];
-
-  AguaData(List<Agua> agua) {
-    registros = agua;
-  }
-
-  void adicionarAgua(Agua agua) {
-    registros.add(agua);
-    salvarAgua(registros);
-    notifyListeners();
-  }
-
-  void removerAgua(int index) {
-    registros.removeAt(index);
-    salvarAgua(registros);
-    notifyListeners();
-  }
-}
-
-class RegistrarPageAgua extends StatelessWidget {
+class RegistrarPageAgua extends StatefulWidget {
   const RegistrarPageAgua({super.key, Key? chave});
 
   @override
+  State<RegistrarPageAgua> createState() => _RegistrarPageAguaState();
+}
+
+class _RegistrarPageAguaState extends State<RegistrarPageAgua> {
+  @override
   Widget build(BuildContext context) {
     final TextEditingController idController = TextEditingController();
-    final TextEditingController dataEntradaController = TextEditingController();
-    final TextEditingController valorEntradaController = TextEditingController();
+    TextEditingController dataEntradaController = TextEditingController();
+    TextEditingController valorEntradaController = TextEditingController();
     final TextEditingController dataSaidaController = TextEditingController();
     final TextEditingController valorSaidaController = TextEditingController();
 
@@ -167,9 +100,11 @@ class RegistrarPageAgua extends StatelessWidget {
 
                       aguaData.adicionarAgua(agua);
 
-                      idController.clear();
-                      dataEntradaController.clear();
-                      valorEntradaController.clear();
+                      int idInt = int.parse(idController.text);
+                      idInt++;
+                      idController.text = "0$idInt";
+                      dataEntradaController.text = dataSaidaController.text;
+                      valorEntradaController.text = valorSaidaController.text;
                       dataSaidaController.clear();
                       valorSaidaController.clear();
                     }

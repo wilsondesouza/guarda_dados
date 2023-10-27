@@ -1,10 +1,10 @@
+// HomePage servindo de base de acesso para diversas páginas, através de ElevatedButtons e Drawer.
+
 import 'package:flutter/material.dart';
 import 'package:guarda_dados/pages/about_page.dart';
 import 'package:guarda_dados/pages/consumo_agua.dart';
 import 'package:guarda_dados/pages/login_page.dart';
 import 'package:guarda_dados/pages/rede_lan.dart';
-import 'package:guarda_dados/pages/sobre_app.dart';
-/*import 'package:guarda_dados/pages/sobre_app.dart';*/
 
 final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 

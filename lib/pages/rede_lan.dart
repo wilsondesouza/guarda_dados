@@ -1,3 +1,5 @@
+// Página utilizando um PageView com o único propósito de servir como intermediária entre as páginas de Consulta e Registro
+
 import 'package:flutter/material.dart';
 import 'package:guarda_dados/pages/consulta_page_lan.dart';
 import 'package:guarda_dados/pages/registrar_page_lan.dart';

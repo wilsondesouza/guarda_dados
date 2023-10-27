@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'my_app.dart';
-import 'pages/registrar_page_lan.dart';
-import 'pages/registrar_page_agua.dart';
 import 'package:provider/provider.dart';
+
+import 'pages/repository/registrar_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

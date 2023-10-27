@@ -1,4 +1,8 @@
+// Página "Sobre" acessada por meio de um Drawer na HomePage
+
 import 'package:flutter/material.dart';
+import 'package:guarda_dados/pages/patch_notes.dart';
+import 'package:guarda_dados/pages/services/build_expansion_tile.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AboutPage extends StatefulWidget {
@@ -23,7 +27,7 @@ class _AboutPageState extends State<AboutPage> {
           color: const Color.fromARGB(255, 31, 29, 29),
           child: ListView(
             children: [
-              _buildExpansionTile(
+              BuildExpansion.buildExpansionTile(
                 title: 'O que é o Guarda Dados?',
                 icon: Icons.info_outline,
                 content: const Text(
@@ -31,7 +35,7 @@ class _AboutPageState extends State<AboutPage> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.greenAccent),
                 ),
               ),
-              _buildExpansionTile(
+              BuildExpansion.buildExpansionTile(
                 title: 'Funcionalidades',
                 icon: Icons.list_alt,
                 content: const Column(
@@ -71,7 +75,7 @@ class _AboutPageState extends State<AboutPage> {
                   ],
                 ),
               ),
-              _buildExpansionTile(
+              BuildExpansion.buildExpansionTile(
                 title: 'Desenvolvedores',
                 icon: Icons.people_outline,
                 content: const Column(
@@ -90,20 +94,27 @@ class _AboutPageState extends State<AboutPage> {
                   ],
                 ),
               ),
-              _buildExpansionTile(
+              BuildExpansion.buildExpansionTile(
                 title: 'Versão',
                 icon: Icons.update,
                 content: FutureBuilder<PackageInfo>(
                   future: PackageInfo.fromPlatform(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             'Versão ${snapshot.data?.version}',
                             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.greenAccent),
                           ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const PatchNotes()));
+                            },
+                            child: const Text("Ver Patch Notes "),
+                          )
                         ],
                       );
                     } else {
@@ -112,7 +123,7 @@ class _AboutPageState extends State<AboutPage> {
                   },
                 ),
               ),
-              _buildExpansionTile(
+              BuildExpansion.buildExpansionTile(
                 title: 'Termos de uso',
                 icon: Icons.gavel,
                 content: const Text(
@@ -123,27 +134,6 @@ class _AboutPageState extends State<AboutPage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildExpansionTile({required String title, required IconData icon, required Widget content}) {
-    return Card(
-      margin: const EdgeInsets.all(8),
-      child: ExpansionTile(
-        backgroundColor: const Color.fromARGB(255, 31, 29, 29),
-        collapsedTextColor: Colors.black87,
-        leading: Icon(icon, size: 30),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        children: [
-          content,
-        ],
       ),
     );
   }

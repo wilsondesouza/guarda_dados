@@ -19,12 +19,12 @@ if (flutterVersionCode == null) {
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.0.4'
+    flutterVersionName = '1.0.4.1'
 }
 
 android {
     namespace "com.wilsondesouza.guardaDadosApp.guarda_dados"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -48,7 +48,7 @@ android {
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode = 3
-        versionName = "1.0.4"
+        versionName = "1.0.4.1"
     }
 
     buildTypes {

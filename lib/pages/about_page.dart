@@ -87,7 +87,7 @@ class _AboutPageState extends State<AboutPage> {
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.greenAccent),
                       ),
                       subtitle: Text(
-                        'wilson.de.souza.junior@gmail.com',
+                        'wilson.de.souza.junior@gmail.com\n@wilsondesouza',
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.greenAccent),
                       ),
                     ),

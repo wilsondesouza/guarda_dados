@@ -21,6 +21,7 @@ class _PatchNotesState extends State<PatchNotes> {
             BuildExpansion.buildExpansionTile(title: 'Versão 1.0.2', icon: Icons.update, content: const Text('Adicionado a página de Patch Notes em "Versão" da página "Sobre", que pode ser acessada através da HomePage', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.greenAccent))),
             BuildExpansion.buildExpansionTile(title: 'Versão 1.0.3', icon: Icons.update, content: const Text('Adicionado a funcionalidade de rolagem infinita nas páginas de Consulta.\nReaproveitamento de dados em alguns campos na página de registrar consumo de água', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.greenAccent))),
             BuildExpansion.buildExpansionTile(title: 'Versão 1.0.4', icon: Icons.update, content: const Text('Adicionado algumas personalizações na aba de autenticação via Biometria', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.greenAccent))),
+            BuildExpansion.buildExpansionTile(title: 'Versão 1.0.4.1', icon: Icons.update, content: const Text('Atualizado o plugin de Biometria da versão 1.1.6 para a 2.1.8', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.greenAccent))),
           ]),
         ));
   }
